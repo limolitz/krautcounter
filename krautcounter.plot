@@ -1,5 +1,5 @@
-set term png truecolor size 820,400 font "Helvetica, 13pt" 
-set title "Spendenanzahl Krautreporter, Stand: ". system("date +'%a, %H:%M:%S Uhr'") 
+set term png truecolor size 820,500 font "Helvetica, 13pt" 
+set title "Spendenanzahl Krautreporter, Stand: ". system("TZ='Europe/Berlin' date +'%a, %H:%M:%S Uhr'") 
 set grid xtics
 set grid ytics
 set output "krautcounter.png"
@@ -20,17 +20,19 @@ set autoscale x
 set xrange ["1402584745":"1402704000"]
 # Donnerstag Abend
 #set xrange ["1402584745":"1402617600"]
+# zoom
+#set xrange ["1402656165":"1402704000"]
 
 set ytic 1000
 set ylabel "Anzahl"
-set yrange [10000:15000]
+set yrange [10000:16000]
 
 set key left top inside horizontal
 
 set style fill solid 1.0
 set style data boxes
 
-plot "krautcounter.data" using ($1+7200):2 title "Spenden"
+plot "krautcounter.data" using ($1+7200):2 title "Spenden", 15000 title "Ziel"
 
 
 set key center bottom outside horizontal
@@ -39,7 +41,7 @@ set output "krautcounter2.png"
 set ytic 500
 set xtic 60*60*3
 set term png truecolor size 1600,800 font "Helvetica, 13pt" 
-plot "krautcounter.data" using ($1+7200):2 title "Spenden"#, y(x) title "Vorhersage" axes x1y2
+plot "krautcounter.data" using ($1+7200):2 title "Spenden", 15000 title "Ziel"
 
 set output "krautcounter3.png"
 
